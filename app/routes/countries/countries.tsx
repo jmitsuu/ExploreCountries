@@ -13,6 +13,7 @@ export default function Countries() {
  const filterRegions = [
   ...new Set(data.listCountries?.map((country) => country.region)),
  ];
+ console.log(data.listCountries);
  return (
   <section>
    <div className="px-5">
@@ -45,6 +46,11 @@ export default function Countries() {
         <NavLink to={`/countries/${country.cca3}`}>
          <span className="text-purple-900 font-bold">
           {country.name.common}
+          <img
+           src={country.flags.svg}
+           alt={country.name.common}
+           className="w-15 h-10 object-cover float-right"
+          />
          </span>
          <br />
          <span className="text-sm">Region: {country.region}</span>
