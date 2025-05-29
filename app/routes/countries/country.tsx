@@ -1,16 +1,22 @@
-import type { Route } from "./+types/countries";
+import type { ICountry } from "~/interfaces/restApiCountries";
+import type { Route } from "./+types/country";
 
-export function meta({}: Route.MetaArgs) {
- return [
-  { title: "Country Details" },
-  { name: "description", content: "Details about the selected country" },
- ];
+// Mock implementation of fetchTeam function
+async function fetchCountry(params:string) {
+  return params
 }
-export default function Country() {
+export async function loader({ params }: Route.LoaderArgs) {
+ let country = await fetchCountry(params.countryName);
+ return {country};
+}
+export default function Country({loaderData}: Route.ComponentProps) {
+  console.log(loaderData)
  return (
-  <div>
-   <h1>Country Details</h1>
-   <p>This page will display details about the selected country.</p>
-  </div>
+  <section>
+ <div className="px-5 mt-10">
+ <h1>Country Details {loaderData.country}</h1>
+ <p>This page will display details about the selected country.</p>
+ </div>
+  </section>
  );
 }

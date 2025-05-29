@@ -12,8 +12,8 @@ export function Navbar() {
    <ul className="flex md:flex-row flex-col  space-x-4 border-l pl-2 border-gray-500">
     {navigation.map((navItem) => {
      return (
-      <li>
-       <NavLink to={navItem.to} className="text-black hover:underline">
+      <li key={navItem.name}>
+       <NavLink to={navItem.to}  className="text-black hover:underline">
         {navItem.name}
        </NavLink>
       </li>

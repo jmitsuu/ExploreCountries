@@ -1,19 +1,15 @@
 import { NavLink } from "react-router";
-import type { Route } from "./+types/countries";
 import FilterCountry from "./compenents/filters/filterCountry";
 import { useModelCountries } from "./model.countries";
 import { CiLocationOn } from "react-icons/ci";
+import { useEffect, useState } from "react";
 
 // export async function clientLoader() {
 //  const { data } = useModelCountries();
-
 // }
 export default function Countries() {
- const { data, state } = useModelCountries();
- const filterRegions = [
-  ...new Set(data.listCountries?.map((country) => country.region)),
- ];
- console.log(data.listCountries);
+ const { data, state, actions } = useModelCountries();
+
  return (
   <section>
    <div className="px-5">
@@ -24,14 +20,16 @@ export default function Countries() {
      </p>
     </div>
     <div className="w-full flex md:flex-row justify-around space-x-2">
-     <FilterCountry />
+     <FilterCountry
+      onChange={(e) => actions.setInputText(e.target.value)}
+      name={state.inputText}
+     />
      <select
-      value={""}
-      onChange={(e) => e.target.value}
+      value={state.selectText}
+      onChange={(e) => actions.setSelectText(e.target.value)}
       className="w-full my-8 border border-gray-300 rounded"
      >
-      <option value="">All Regions</option>
-      {filterRegions?.map((region) => (
+      {data.filterRegions?.map((region) => (
        <option key={region} value={region}>
         {region}
        </option>
@@ -39,17 +37,17 @@ export default function Countries() {
      </select>
     </div>
     {state.isPending ? "Loading countries..." : ""}
-    <div className=" flex justify-center">
+    <div className=" flex md:justify-start justify-center">
      <ul className="flex md:flex-row md:justify-between justify-center flex-wrap bg-white space-y-2">
-      {data.listCountries?.map((country) => (
-       <li className="w-96 min-h-24 p-4 shadow-sm rounded" key={country.cca3}>
+      {data.filteredCountries?.map((country) => (
+       <li className="w-96 min-h-28 p-4 shadow-sm rounded" key={country.cca3}>
         <NavLink to={`/countries/${country.cca3}`}>
-         <span className="text-purple-900 font-bold">
+         <span className="text-purple-900 font-bold flex justify-between items-center">
           {country.name.common}
           <img
            src={country.flags.svg}
-           alt={country.name.common}
-           className="w-15 h-10 object-cover float-right"
+           alt={country.flags.alt}
+           className="w-10 h-7 rounded object-cover float-right"
           />
          </span>
          <br />
@@ -61,7 +59,7 @@ export default function Countries() {
          </span>
         </NavLink>
         <NavLink
-         className="float-right"
+         className="float-right hover:text-blue-600"
          to={country.maps.googleMaps}
          target="_blank"
         >

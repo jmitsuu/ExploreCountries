@@ -12,7 +12,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
  return (
-  <div className="px-5 flex h-full md:flex-row flex-col justify-between items-center">
+  <div className="px-5 mt-20 flex h-full md:flex-row flex-col justify-between items-center">
    <div className="w-full md:text-6xl text-4xl md:text-start text-center">
     <h1 className="text-black  font-bold">Explore Countries with </h1>
     <h2 className="text-purple-900  font-bold">Real-Time Data</h2>
