@@ -1,16 +1,53 @@
 import type { Route } from "./+types/countries";
+import { useModelCountries } from "./model.countries";
+import { CiLocationOn } from "react-icons/ci";
 
-export function meta({}: Route.MetaArgs) {
- return [
-  { title: "Countries" },
-  { name: "description", content: "All countries" },
- ];
-}
-export function Countries() {
+// export async function clientLoader() {
+//  const { data } = useModelCountries();
+
+// }
+export default function Countries() {
+ const { data, state } = useModelCountries();
+ console.log(data.listCountries);
  return (
-  <div>
-   <h1>Countries</h1>
-   <p>List of countries will be displayed here.</p>
-  </div>
+  <section>
+   <div className="px-5">
+    <div className="my-10 space-y-3">
+     <h1 className="md:text-3xl font-bold">Countries</h1>
+     <p className="text-gray-400 text-sm">
+      List of countries will be displayed here.
+     </p>
+    </div>
+    {state.isPending ? "Loading countries..." : ""}
+    <div className=" flex justify-center">
+     <ul className="flex md:flex-row md:justify-between justify-center flex-wrap bg-white space-y-2">
+      {data.listCountries?.map((country) => (
+       <li className="w-96 min-h-24 p-4 shadow-sm rounded" key={country.cca3}>
+        <a href={`/countries/${country.cca3}`}>
+         <span className="text-purple-900 font-bold">
+          {country.name.common}
+         </span>
+         <br />
+         <span className="text-sm">Region: {country.region}</span>
+         <br />
+         <span className="text-sm">
+          Population:{" "}
+          <b className="text-xs">{country.population.toLocaleString()}</b>
+         </span>
+        </a>
+
+        <a
+         className="float-right"
+         href={country.maps.googleMaps}
+         target="_blank"
+        >
+         <CiLocationOn className="size-8" />
+        </a>
+       </li>
+      ))}
+     </ul>
+    </div>
+   </div>
+  </section>
  );
 }
