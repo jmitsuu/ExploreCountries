@@ -16,7 +16,7 @@ export default function Home() {
    <div className="w-full md:text-6xl text-4xl md:text-start text-center">
     <h1 className="text-black  font-bold">Explore Countries with </h1>
     <h2 className="text-purple-900  font-bold">Real-Time Data</h2>
-    <h3 className="text-xl my-10 px-10 text-pretty">
+    <h3 className="text-2xl text-slate-500 my-10 px-10 text-pretty">
      Discover details about every country around the world - from capitals to
      regions!
     </h3>
@@ -35,7 +35,7 @@ export default function Home() {
       Learn More
      </NavLink>
     </div>
-    <div className="text-sm mt-20">@Jaiomiiguel</div>
+    <div className="text-sm mt-20 md:flex hidden">@Jaiomiiguel</div>
    </div>
    <div className="w-full mt-10 md:w-2/3 ">
     <img
