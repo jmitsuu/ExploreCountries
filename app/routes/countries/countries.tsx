@@ -3,6 +3,8 @@ import FilterCountry from "./compenents/filters/filterCountry";
 import { useModelCountries } from "./model.countries";
 import { CiLocationOn } from "react-icons/ci";
 import { useEffect, useState } from "react";
+import CountryCards from "./compenents/country-cards/countryCards";
+import DropZone from "./compenents/drop-zone/dropZone";
 
 // export async function clientLoader() {
 //  const { data } = useModelCountries();
@@ -36,38 +38,11 @@ export default function Countries() {
       ))}
      </select>
     </div>
+    <DropZone />
+
     {state.isPending ? "Loading countries..." : ""}
-    <div className=" flex md:justify-start justify-center">
-     <ul className="flex md:flex-row md:justify-between justify-center flex-wrap bg-white space-y-2">
-      {data.filteredCountries?.map((country) => (
-       <li className="w-96 min-h-28 p-4 shadow-sm rounded" key={country.cca3}>
-        <NavLink to={`/countries/${country.cca3}`}>
-         <span className="text-purple-900 font-bold flex justify-between items-center">
-          {country.name.common}
-          <img
-           src={country.flags.svg}
-           alt={country.flags.alt}
-           className="w-10 h-7 rounded object-cover float-right"
-          />
-         </span>
-         <br />
-         <span className="text-sm">Region: {country.region}</span>
-         <br />
-         <span className="text-sm">
-          Population:{" "}
-          <b className="text-xs">{country.population.toLocaleString()}</b>
-         </span>
-        </NavLink>
-        <NavLink
-         className="float-right hover:text-blue-600"
-         to={country.maps.googleMaps}
-         target="_blank"
-        >
-         <CiLocationOn className="size-8" />
-        </NavLink>
-       </li>
-      ))}
-     </ul>
+    <div className="">
+     <CountryCards styleCard="md:justify-between" dataCountry={data.filteredCountries} />
     </div>
    </div>
   </section>

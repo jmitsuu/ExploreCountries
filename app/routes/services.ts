@@ -6,7 +6,7 @@ export const getCountries = async (): Promise<ICountry[] | undefined> => {
  try {
   const { data } = await axios.get<ICountry[]>(API_URL);
   return data;
- } catch (error) {
-  console.log(error);
+ } catch (error:any) {
+  console.log(error.message);
  }
 };
